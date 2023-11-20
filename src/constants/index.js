@@ -1,6 +1,4 @@
 export const rapidApiKey = "998ab97f8amsh65ecc7c2f237492p1b505ejsn74f6247245ae";
-// below is the api used from rapid api hub
-// https://rapidapi.com/ytdlfree/api/youtube-v3-alternative/
 
 export const categories = [
   "All",

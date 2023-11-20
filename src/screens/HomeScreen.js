@@ -5,6 +5,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { themeColors } from "../theme";
@@ -16,6 +17,7 @@ import { fetchVideos } from "../api/youtube";
 const HomeScreen = () => {
   const [isActive, setActive] = useState("All");
   const [data, setData] = useState(null);
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -23,6 +25,19 @@ const HomeScreen = () => {
     const data = await fetchVideos();
     setData(data);
   };
+  if (!data) {
+    return (
+      <SafeAreaView
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+        }}>
+        <ActivityIndicator size={"large"} />
+      </SafeAreaView>
+    );
+  }
+
   return (
     <View className="flex-1" style={{ backgroundColor: themeColors.bg }}>
       <SafeAreaView className="flex-row items-center justify-between mx-4">
@@ -71,7 +86,7 @@ const HomeScreen = () => {
           </ScrollView>
         </View>
         <VideoCard video={data[0]} />
-        <View className="mt-2 py-5 border-t-zinc-700 border-b-zinc-700 border-y-4 ">
+        <View className="mt-4 py-5 border-t-zinc-700 border-b-zinc-700 border-y-4 ">
           <View className="mx-4 flex-row items-center space-x-2">
             <Image
               source={require("../../assets/icons/shortsIcon.png")}
